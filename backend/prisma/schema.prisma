@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                   Int                   @id @default(autoincrement())
+  name                 String
+  email                String                @unique
+  password             String
+  role                 String                @default("USER") // MANAGER | PROCUREMENT | USER
+  createdAt            DateTime              @default(now())
+  materialRequisitions MaterialRequisition[]
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  client      String?
+  location    String?
+  boqItems    BOQItem[]
+}
+
+model BOQItem {
+  id          Int     @id @default(autoincrement())
+  projectId   Int
+  project     Project @relation(fields: [projectId], references: [id])
+  category    String
+  subCategory String
+  description String
+  quantity    Int
+  unit        String
+
+  mrItems MRItem[] // 🔥 NEW RELATION (multi-items)
+}
+
+model MaterialRequisition {
+  id Int @id @default(autoincrement())
+
+  requestedBy     Int
+  requestedByUser User @relation(fields: [requestedBy], references: [id])
+
+  remarks        String?
+  managerRemarks String?
+  status         MRStatus @default(PENDING)
+  createdAt      DateTime @default(now())
+
+  items MRItem[] // 🔥 NEW RELATION (multiple items)
+
+  supplierQuotes SupplierQuote[]
+}
+
+model MRItem {
+  id Int @id @default(autoincrement())
+
+  mrId      Int
+  boqItemId Int
+  quantity  Int
+
+  mr      MaterialRequisition @relation(fields: [mrId], references: [id])
+  boqItem BOQItem             @relation(fields: [boqItemId], references: [id])
+
+  supplierQuotes SupplierQuote[]
+}
+
+model SupplierQuote {
+  id       Int    @id @default(autoincrement())
+  mrId     Int
+  itemId   Int
+  supplier String
+  price    Float
+
+  mr   MaterialRequisition @relation(fields: [mrId], references: [id])
+  item MRItem              @relation(fields: [itemId], references: [id])
+}
+
+enum Role {
+  USER
+  PROCUREMENT
+  MANAGER
+}
+
+enum MRStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PROCUREMENT_PENDING
+  COMPLETED
+}
