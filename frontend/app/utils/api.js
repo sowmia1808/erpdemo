@@ -1,6 +1,7 @@
 // app/utils/api.js
 
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://erpdemo-production.up.railway.app/api";
+
 
 export async function apiGet(endpoint, token) {
   const res = await fetch(`${API_BASE}${endpoint}`, {
