@@ -1,6 +1,6 @@
 // app/utils/api.js
 
-const API_BASE = "https://erpdemo-production.up.railway.app/api";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL + "/api";
 
 
 export async function apiGet(endpoint, token) {
