@@ -38,7 +38,7 @@ export function AuthProvider({ children }) {
     } else if (data.user.role === "PROCUREMENT") {
       window.location.href = "/dashboard/procurement";
     } else {
-      window.location.href = "/dashboard/projects";
+      window.location.href = "/dashboard";  // USER here
     }
   };
 
