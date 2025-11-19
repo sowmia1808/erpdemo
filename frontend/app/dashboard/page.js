@@ -1,3 +1,3 @@
 export default function DashboardHome() {
-  return <h1 className="text-2xl font-bold">Welcome to Ray Dashboard</h1>;
+  return <h1 className="text-2xl font-bold">Welcome to Ray Fitout Interior Contracting LLC!</h1>;
 }
