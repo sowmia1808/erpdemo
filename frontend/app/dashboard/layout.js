@@ -16,7 +16,7 @@ export default function DashboardLayout({ children }) {
       <div className="flex min-h-screen">
         {/* SIDEBAR */}
         <aside className="w-64 bg-gray-900 text-white p-5 space-y-6">
-          <h1 className="text-xl font-bold">Ray Fitout</h1>
+          <h1 className="text-xl font-bold">Ray Fitout Interior</h1>
 <nav className="space-y-3">
 
   <Link href="/dashboard" className="block px-3 py-2 rounded hover:bg-gray-700">
@@ -58,7 +58,7 @@ export default function DashboardLayout({ children }) {
       </Link>
 
       <Link href="/dashboard/procurement" className="block px-3 py-2 rounded hover:bg-gray-700">
-        Procurement
+        Add supplier quotes for approved mr
       </Link>
        <Link
     href="/dashboard/procurement/quotes"
